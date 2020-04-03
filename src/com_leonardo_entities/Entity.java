@@ -4,10 +4,10 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class Entity {
-    private int x;
-    private int y;
-    private int width;
-    private int height;
+    protected double x;
+    protected double y;
+    protected int width;
+    protected int height;
 
     private BufferedImage sprite;
 
@@ -19,12 +19,20 @@ public class Entity {
         this.sprite = sprite;
     }
 
+    public void setX(int X) {
+        this.x = X;
+    }
+
+    public void setY(int Y) {
+        this.y = Y;
+    }
+
     public int getX() {
-        return this.x;
+        return (int) this.x;
     }
 
     public int getY() {
-        return this.y;
+        return (int) this.y;
     }
 
     public int getWidth() {

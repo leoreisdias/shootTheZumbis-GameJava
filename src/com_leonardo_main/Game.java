@@ -15,7 +15,10 @@ import com_leonardo_entities.Entity;
 import com_leonardo_entities.Player;
 import com_leonardo_graficos.Spritesheet;
 
-public class Game extends Canvas implements Runnable {
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class Game extends Canvas implements Runnable, KeyListener {
 
 	/**
 	 *
@@ -33,8 +36,10 @@ public class Game extends Canvas implements Runnable {
 	public List<Entity> entities;
 	public Spritesheet spritesheet;
 
-	public Game() {
+	private Player player;
 
+	public Game() {
+		addKeyListener(this);
 		this.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		initFrame();
 		// Inicio de Objetos
@@ -42,7 +47,7 @@ public class Game extends Canvas implements Runnable {
 		entities = new ArrayList<Entity>();
 		spritesheet = new Spritesheet("/spritesheet.png");
 
-		Player player = new Player(0, 0, 16, 16, spritesheet.getSprite(32, 0, 16, 16));
+		player = new Player(0, 0, 16, 16, spritesheet.getSprite(32, 0, 16, 16));
 		entities.add(player);
 	}
 
@@ -91,7 +96,7 @@ public class Game extends Canvas implements Runnable {
 		}
 		Graphics g = image.getGraphics();
 
-		g.setColor(new Color(0, 0, 0));
+		g.setColor(new Color(115, 0, 130));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
 		// Renderização do Jogo
@@ -116,6 +121,7 @@ public class Game extends Canvas implements Runnable {
 		int frames = 0;
 		double timer = System.currentTimeMillis();
 		while (isRunning) {
+			requestFocus();
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
 			lastTime = now;
@@ -134,5 +140,39 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		stop();
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+			player.right = true;
+		} else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+			player.left = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
+			player.up = true;
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+			player.down = true;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+			player.right = false;
+		} else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+			player.left = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
+			player.up = false;
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+			player.down = false;
+		}
 	}
 }
