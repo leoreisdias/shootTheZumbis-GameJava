@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import com_leonardo_entities.Entity;
 import com_leonardo_entities.Player;
 import com_leonardo_graficos.Spritesheet;
+import com_leonardo_world.World;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -35,6 +36,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 	public List<Entity> entities;
 	public static Spritesheet spritesheet;
+	public static World world;
 
 	private Player player;
 
@@ -43,6 +45,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		this.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		initFrame();
 		// Inicio de Objetos
+		world = new World("/map.png");
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		spritesheet = new Spritesheet("/spritesheet.png");
