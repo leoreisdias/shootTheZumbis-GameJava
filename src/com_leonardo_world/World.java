@@ -5,6 +5,13 @@ import java.io.IOException;
 import java.awt.Graphics;
 import javax.imageio.ImageIO;
 
+import com_leonardo_entities.Bullet;
+import com_leonardo_entities.Enemy;
+import com_leonardo_entities.Entity;
+import com_leonardo_entities.Gun;
+import com_leonardo_entities.LifePack;
+import com_leonardo_main.Game;
+
 public class World {
 
     private Tile[] tiles;
@@ -21,21 +28,31 @@ public class World {
             for (int xx = 0; xx < spriteMap.getWidth(); xx++) {
                 for (int yy = 0; yy < spriteMap.getHeight(); yy++) {
                     int pixelAtual = pixels[xx + (yy * spriteMap.getWidth())];
+                    tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_FLOOR);
                     if (pixelAtual == 0xFF000000) {
                         // Chão
                         tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_FLOOR);
                     } else if (pixelAtual == 0xFFFFFFFF) {
-                        // Colisão com Parede
+                        // Parede
                         tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_WALL);
-
-                    } else if (pixelAtual == 0xFFFF00E1) {
+                    } else if (pixelAtual == 0xFFFF00DC) {
                         // Player
-                        tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_FLOOR);
-
-                    } else {
-                        tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_FLOOR);
-
+                        Game.player.setX(xx * 16);
+                        Game.player.setY(yy * 16);
+                    } else if (pixelAtual == 0xFFFF0000) {
+                        // Inimigo
+                        Game.entities.add(new Enemy(xx * 16, yy * 16, 16, 16, Entity.ENTITY_ENEMY));
+                    } else if (pixelAtual == 0xFF0026FF) {
+                        // Arma
+                        Game.entities.add(new Gun(xx * 16, yy * 16, 16, 16, Entity.ENTITY_GUN));
+                    } else if (pixelAtual == 0xFF00FF21) {
+                        // Pack de Vida
+                        Game.entities.add(new LifePack(xx * 16, yy * 16, 16, 16, Entity.ENTITY_LIFEPACK));
+                    } else if (pixelAtual == 0xFFFFD800) {
+                        // Munição
+                        Game.entities.add(new Bullet(xx * 16, yy * 16, 16, 16, Entity.ENTITY_BULLET));
                     }
+
                 }
             }
         } catch (IOException e) {

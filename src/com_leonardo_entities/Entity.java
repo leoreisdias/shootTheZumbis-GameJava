@@ -3,7 +3,14 @@ package com_leonardo_entities;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import com_leonardo_main.Game;
+
 public class Entity {
+
+    public static BufferedImage ENTITY_LIFEPACK = Game.spritesheet.getSprite(6 * 16, 0, 16, 16);
+    public static BufferedImage ENTITY_GUN = Game.spritesheet.getSprite(7 * 16, 0, 16, 16);
+    public static BufferedImage ENTITY_BULLET = Game.spritesheet.getSprite(6 * 16, 16, 16, 16);
+    public static BufferedImage ENTITY_ENEMY = Game.spritesheet.getSprite(7 * 16, 16, 16, 16);
 
     protected double x;
     protected double y;
