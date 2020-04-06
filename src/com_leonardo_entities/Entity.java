@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class Entity {
+
     protected double x;
     protected double y;
     protected int width;
