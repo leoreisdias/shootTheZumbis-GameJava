@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com_leonardo_main.Game;
+import com_leonardo_world.Camera;
 
 public class Entity {
 
@@ -52,7 +53,7 @@ public class Entity {
     }
 
     public void render(Graphics g) {
-        g.drawImage(sprite, this.getX(), this.getY(), this.getWidth(), this.getHeight(), null);
+        g.drawImage(sprite, this.getX() - Camera.x, this.getY() - Camera.y, this.getWidth(), this.getHeight(), null);
     }
 
     public void tick() {
