@@ -27,7 +27,7 @@ public class World {
             spriteMap.getRGB(0, 0, spriteMap.getWidth(), spriteMap.getHeight(), pixels, 0, spriteMap.getWidth());
             for (int xx = 0; xx < spriteMap.getWidth(); xx++) {
                 for (int yy = 0; yy < spriteMap.getHeight(); yy++) {
-                    int pixelAtual = pixels[xx + (yy * spriteMap.getWidth())];
+                    final int pixelAtual = pixels[xx + (yy * spriteMap.getWidth())];
                     tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_FLOOR);
                     if (pixelAtual == 0xFF000000) {
                         // Chão
@@ -61,10 +61,16 @@ public class World {
     }
 
     public void render(Graphics g) {
-        int xStart = Camera.x / 16;
-        int yStart = Camera.y / 16;
-        for (int xx = 0; xx < WIDTH; xx++) {
-            for (int yy = 0; yy < HEIGHT; yy++) {
+        int xStart = Camera.x >> 4;
+        int yStart = Camera.y >> 4;
+
+        int xFinal = xStart + (Game.WIDTH >> 4);
+        int yFinal = yStart + (Game.HEIGHT >> 4);
+
+        for (int xx = xStart; xx <= xFinal; xx++) {
+            for (int yy = yStart; yy <= yFinal; yy++) {
+                if (xx < 0 || yy < 0 || xx >= WIDTH || yy >= HEIGHT)
+                    continue;
                 Tile tile = tiles[xx + (yy * WIDTH)];
                 tile.render(g);
             }
