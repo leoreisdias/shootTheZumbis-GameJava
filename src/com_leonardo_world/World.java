@@ -43,7 +43,9 @@ public class World {
                         Game.player.setY(yy * 16);
                     } else if (pixelAtual == 0xFFFF0000) {
                         // Inimigo
-                        Game.entities.add(new Enemy(xx * 16, yy * 16, 16, 16, Entity.ENTITY_ENEMY));
+                        Enemy en = new Enemy(xx * 16, yy * 16, 16, 16, Entity.ENTITY_ENEMY);
+                        Game.entities.add(en);
+                        Game.enemies.add(en);
                     } else if (pixelAtual == 0xFF0026FF) {
                         // Arma
                         Game.entities.add(new Gun(xx * 16, yy * 16, 16, 16, Entity.ENTITY_GUN));
@@ -67,13 +69,13 @@ public class World {
         int y1 = yNext / TILE_SIZE;
 
         int x2 = (xNext + TILE_SIZE - 1) / TILE_SIZE;
-        int y2 = yNext / TILE_SIZE; // 5
+        int y2 = yNext / TILE_SIZE;
 
         int x3 = xNext / TILE_SIZE;
         int y3 = (yNext + TILE_SIZE - 1) / TILE_SIZE;
 
-        int x4 = (xNext + TILE_SIZE - 1) / TILE_SIZE;// 3
-        int y4 = (yNext + TILE_SIZE - 1) / TILE_SIZE; // 6
+        int x4 = (xNext + TILE_SIZE - 1) / TILE_SIZE;
+        int y4 = (yNext + TILE_SIZE - 1) / TILE_SIZE;
 
         return !((tiles[x1 + (y1 * World.WIDTH)] instanceof WallTile)
                 || (tiles[x2 + (y2 * World.WIDTH)] instanceof WallTile)
