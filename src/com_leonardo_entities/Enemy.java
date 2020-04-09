@@ -25,19 +25,32 @@ public class Enemy extends Entity {
     }
 
     public void tick() {
-        if ((int) x < Game.player.getX() && World.isFree((int) (x + speed), this.getY())
-                && !isColliding((int) (x + speed), this.getY())) {
-            x += speed;
-        } else if ((int) x > Game.player.getX() && World.isFree((int) (x - speed), this.getY())
-                && !isColliding((int) (x - speed), this.getY())) {
-            x -= speed;
-        }
-        if ((int) y < Game.player.getY() && World.isFree(this.getX(), (int) (y + speed))
-                && !isColliding(this.getX(), (int) (y + speed))) {
-            y += speed;
-        } else if ((int) y > Game.player.getY() && World.isFree(this.getX(), (int) (y - speed))
-                && !isColliding(this.getX(), (int) (y - speed))) {
-            y -= speed;
+        if (!this.isCollidingWithPlayer()) {
+            if ((int) x < Game.player.getX() && World.isFree((int) (x + speed), this.getY())
+                    && !isColliding((int) (x + speed), this.getY())) {
+                x += speed;
+            } else if ((int) x > Game.player.getX() && World.isFree((int) (x - speed), this.getY())
+                    && !isColliding((int) (x - speed), this.getY())) {
+                x -= speed;
+            }
+            if ((int) y < Game.player.getY() && World.isFree(this.getX(), (int) (y + speed))
+                    && !isColliding(this.getX(), (int) (y + speed))) {
+                y += speed;
+            } else if ((int) y > Game.player.getY() && World.isFree(this.getX(), (int) (y - speed))
+                    && !isColliding(this.getX(), (int) (y - speed))) {
+                y -= speed;
+            }
+        } else {
+            // Inimigo está colado no player
+            // Consequencias:
+            if (Game.rand.nextInt(100) < 10) {
+                Game.player.LIFE -= Game.rand.nextInt(3);
+                if (Game.player.LIFE <= 0) {
+                    // Game Over
+                }
+            }
+            System.out.println("LIFE: " + Game.player.LIFE);
+
         }
 
         frames++;
@@ -49,6 +62,13 @@ public class Enemy extends Entity {
             }
         }
 
+    }
+
+    public boolean isCollidingWithPlayer() {
+        Rectangle currentEnemy = new Rectangle(this.getX() + xMask, this.getY() + yMask, widthMask, heightMask);
+        Rectangle player = new Rectangle(Game.player.getX(), Game.player.getY(), 16, 16);
+
+        return currentEnemy.intersects(player);
     }
 
     public boolean isColliding(int xNext, int yNext) {
