@@ -50,7 +50,7 @@ World -> Carrega e trabalha com todas as entidades de forma estatica na tela, se
 
 ## Mais sobre World
 
-<img src="bin/map.png" width="100" />
+![Map](https://user-images.githubusercontent.com/47978193/78920519-e7f57780-7a69-11ea-9717-267b2a33f984.png)
 
 ### Esse mapa funciona como uma Engine própria. 
 
