@@ -1,4 +1,4 @@
-# Atire nos Zoombies e Sobreviva - Jogo inteiro em Java
+# Atire nos Zumbies e Sobreviva - Jogo inteiro em Java
 ## Mini Documentação
 
 ## SpriteSheets
