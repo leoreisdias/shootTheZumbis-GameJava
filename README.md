@@ -21,13 +21,13 @@
 
 Sobre algumas:
 
-    Entity -> Classe principal, onde armazena os principais atributos presentes em todos, como: Posição X, Y, largura, altura e métodos como Tick (Responsavel pela lógica de cada classe) e Render.
+<strong>Entity</strong> -> Classe principal, onde armazena os principais atributos presentes em todos, como: Posição X, Y, largura, altura e métodos como Tick (Responsavel pela lógica de cada classe) e Render.
 
-    Player -> Player movimenta em base do Speed definido, tanto em eixo X como Y, e suas animações são armazenadas no Buffer para que numa taxa proxima a 1/4 de segundo seja trocada os sprites e crie o efeito animado.
+<strong>Player</strong> -> Player movimenta em base do Speed definido, tanto em eixo X como Y, e suas animações são armazenadas no Buffer para que numa taxa proxima a 1/4 de segundo seja trocada os sprites e crie o efeito animado.
 
-    Enemy -> Possui os mesmos conceitos do Player. A diferença principal está na movimentação e mascara. A movimentação é feita de forma randomica em direção ao eixos do Jogador e uma mascara Retangular é colocada em volta dele para que não se aglomere com os outros inimigos e nem com o jogador.
+<strong>Enemy</strong> -> Possui os mesmos conceitos do Player. A diferença principal está na movimentação e mascara. A movimentação é feita de forma randomica em direção ao eixos do Jogador e uma mascara Retangular é colocada em volta dele para que não se aglomere com os outros inimigos e nem com o jogador.
 
-    Gun -> Uma animação simples também foi adicionada para que tenha melhor efeito visual, seguindo os mesmos métodos de armazenar num vetor de Buffer das duas mecionadas anteriormente.
+<strong>Gun</strong> -> Uma animação simples também foi adicionada para que tenha melhor efeito visual, seguindo os mesmos métodos de armazenar num vetor de Buffer das duas mecionadas anteriormente.
 
 
 
@@ -43,9 +43,9 @@ Sobre algumas:
 
 Sobre algumas:
 
-    Tile -> "Recorta" e armazena do spritesheet as imagens correspondentes a parede chão e renderiza em seguida no mundo com as coordenadas corretas
+<strong>Tile</strong> -> "Recorta" e armazena do spritesheet as imagens correspondentes a parede chão e renderiza em seguida no mundo com as coordenadas corretas
 
-    World -> Carrega e trabalha com todas as entidades de forma estatica na tela, seguindo um conceito de Engine.
+<strong>World</strong> -> Carrega e trabalha com todas as entidades de forma estatica na tela, seguindo um conceito de Engine.
 
 <hr />
 <hr />
