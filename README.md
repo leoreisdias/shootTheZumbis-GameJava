@@ -3,7 +3,7 @@
 
 ## SpriteSheets
 
-![SpriteSheet](bin/spritesheet.png = 250x250)
+<img src="bin/spritesheet.png" width="250" />
 
     * Player
     * Enemy
@@ -50,7 +50,7 @@ World -> Carrega e trabalha com todas as entidades de forma estatica na tela, se
 
 ## Mais sobre World
 
-![World](bin/map.png = 250x250)
+<img src="bin/map.png" width="100" />
 
 ### Esse mapa funciona como uma Engine própria. 
 
