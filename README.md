@@ -49,6 +49,7 @@ World -> Carrega e trabalha com todas as entidades de forma estatica na tela, se
 
 <hr />
 <hr />
+
 ### Colisões
 
 A colisão do jogador com os Tiles é verificada com a estratégia do retangulo, e não Pixel Perfect Collision.
