@@ -21,7 +21,7 @@
 
 Sobre algumas:
 
-Entity -> Classe principal, onde armazena os principais atributos presentes em todos como posição X, Y, largura, altura e métodos como Tick (Responsavel pela lógica de cada classe) e Render.
+Entity -> Classe principal, onde armazena os principais atributos presentes em todos, como: Posição X, Y, largura, altura e métodos como Tick (Responsavel pela lógica de cada classe) e Render.
 
 Player -> Player movimenta em base do Speed definido, tanto em eixo X como Y, e suas animações são armazenadas no Buffer para que numa taxa proxima a 1/4 de segundo seja trocada os sprites e crie o efeito animado.
 
@@ -59,6 +59,9 @@ A classe World fica responsavel de armazenar um vetor com cada pixel dessa image
 Nas cores correspondetes aos inimigos serão renderizados os inimigos de forma estatica e o mesmo com os outros elementos.
 
 Assim para outros jogos futuros, posso reaproveitar o mapa e a renderização do mundo apenas alterando os cores e as posições.
+
+Exemplo:
+* Se eu quiser mais inimigos, é só pintar mais quadrados vermelhos e apenas isso.
 
 * O movimento é feito separadamente em cada classe propria das entidades.
 
