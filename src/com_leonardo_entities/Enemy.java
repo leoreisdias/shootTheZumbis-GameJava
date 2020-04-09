@@ -47,9 +47,10 @@ public class Enemy extends Entity {
                 Game.player.LIFE -= Game.rand.nextInt(3);
                 if (Game.player.LIFE <= 0) {
                     // Game Over
+                    System.exit(1);
                 }
             }
-            System.out.println("LIFE: " + Game.player.LIFE);
+            System.out.println("LIFE: " + Player.LIFE);
 
         }
 

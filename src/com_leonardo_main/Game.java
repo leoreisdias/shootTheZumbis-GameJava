@@ -16,6 +16,7 @@ import com_leonardo_entities.Enemy;
 import com_leonardo_entities.Entity;
 import com_leonardo_entities.Player;
 import com_leonardo_graficos.Spritesheet;
+import com_leonardo_graficos.UI;
 import com_leonardo_world.World;
 
 import java.awt.event.KeyEvent;
@@ -42,6 +43,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public static World world;
 
 	public static Player player;
+	public UI ui;
 
 	public static Random rand;
 
@@ -51,6 +53,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		this.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		initFrame();
 		// Inicio de Objetos
+		ui = new UI();
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		enemies = new ArrayList<Enemy>();
@@ -119,6 +122,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 			Entity e = entities.get(i);
 			e.render(g);
 		}
+		ui.render(g);
 		// ** */
 		g.dispose();
 		g = bs.getDrawGraphics();

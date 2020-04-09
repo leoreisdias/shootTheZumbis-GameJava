@@ -33,6 +33,12 @@ Sobre algumas:
 
 ### Graficos
   * Focada em armazenar a busca pelos elementos no spritesheet.png, "recortando" as partes que vão sendo definidas para outras classes.
+  
+#### UI
+Com a UI é exibido dois retangulos, um Vermelho indicandoa vida máxima e 
+outro Verde indicando a vida atual.
+Perder vida decrementa a largura do retangulo Verde.
+ A Largura de 50 equivale ao total de vida 100. O decrementa é feito com uma simples regra de 3.
 
 ### Main
   * Armazena a classe principal do Jogo, onde a janela, o Looping, o inicio e o fim são definidos e os atributos gerais.
