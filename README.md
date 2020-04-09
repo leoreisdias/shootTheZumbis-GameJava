@@ -64,10 +64,10 @@ Assim para outros jogos futuros, posso reaproveitar o mapa e a renderização do
 
 Para esse jogo em especifico temos que as cores:
 
-[x] Branca - Parede (WallTile)
-[x] Preta - Chão (FloorTile)
-[x] Vermelha - Inimigo (Enemy)
-[x] Verde - Vida (LifePack)
-[x] Amarelo - Munições (Bullet)
-[x] Azul - Arma (Gun)
-[x] Rosa - Jogador (Player)
+    [x] Branca - Parede (WallTile)
+    [x] Preta - Chão (FloorTile)
+    [x] Vermelha - Inimigo (Enemy)
+    [x] Verde - Vida (LifePack)
+    [x] Amarelo - Munições (Bullet)
+    [x] Azul - Arma (Gun)
+    [x] Rosa - Jogador (Player)
