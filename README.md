@@ -15,10 +15,10 @@
 
 ## Os Pacotes e suas Classes
 
-* Entities
+### Entities
   * Focado em todos aspectos gráficos com "vida"
 
-```txt
+
 Sobre algumas:
 
 Entity -> Classe principal, onde armazena os principais atributos presentes em todos como posição X, Y, largura, altura e métodos como Tick (Responsavel pela lógica de cada classe) e Render.
@@ -29,25 +29,24 @@ Enemy -> Possui os mesmos conceitos do Player. A diferença principal está na m
 
 Gun -> Uma animação simples também foi adicionada para que tenha melhor efeito visual, seguindo os mesmos métodos de armazenar num vetor de Buffer das duas mecionadas anteriormente.
 
-```
 
-* Graficos
+
+### Graficos
   * Focada em armazenar a busca pelos elementos no spritesheet.png, "recortando" as partes que vão sendo definidas para outras classes.
 
-* Main
+### Main
   * Armazena a classe principal do Jogo, onde a janela, o Looping, o inicio e o fim são definidos e os atributos gerais.
 
-* World
+### World
   * Focado nos elementos do mundo como Tiles(chão e parede) e Camera.
 
-```txt
+
 Sobre algumas:
 
 Tile -> "Recorta" e armazena do spritesheet as imagens correspondentes a parede chão e renderiza em seguida no mundo com as coordenadas corretas
 
 World -> Carrega e trabalha com todas as entidades de forma estatica na tela, seguindo um conceito de Engine.
 
-```
 
 ## Mais sobre World
 
