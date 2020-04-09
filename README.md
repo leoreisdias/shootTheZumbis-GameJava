@@ -48,6 +48,15 @@ Tile -> "Recorta" e armazena do spritesheet as imagens correspondentes a parede 
 World -> Carrega e trabalha com todas as entidades de forma estatica na tela, seguindo um conceito de Engine.
 
 
+### Colisões
+
+A colisão do jogador com os Tiles é verificada com a estratégia do retangulo, e não Pixel Perfect Collision.
+
+As laterais do jogador são verificadas no próximo X e Y que ele irá assumir.
+
+Usando o Instanceof posso descobrir nas verificações das laterais do jogador se há um Pixel Instanciado como Parede (WallTile). Caso tenha, se o jogador for na direção deles, o InstanceOf retornando TRUE fará o "bloqueio" do incremento de X e Y do Jogador, o que equivale a colisão.
+
+
 ## Mais sobre World
 
 ![Map](https://user-images.githubusercontent.com/47978193/78920519-e7f57780-7a69-11ea-9717-267b2a33f984.png)
