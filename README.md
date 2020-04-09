@@ -72,9 +72,10 @@ Nas cores correspondetes aos inimigos serão renderizados os inimigos de forma e
 Assim para outros jogos futuros, posso reaproveitar o mapa e a renderização do mundo apenas alterando os cores e as posições.
 
     Exemplo:
-      * Se eu quiser mais inimigos, é só pintar mais quadrados vermelhos e apenas isso.
 
-      * O movimento é feito separadamente em cada classe propria das entidades.
+    * Se eu quiser mais inimigos, é só pintar mais quadrados vermelhos e apenas isso.
+
+    * O movimento é feito separadamente em cada classe propria das entidades.
 
 Para esse jogo em especifico temos que as cores:
 
