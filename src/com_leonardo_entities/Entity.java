@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import com_leonardo_main.Game;
 import com_leonardo_world.Camera;
 import java.awt.Rectangle;
-import java.awt.Color;
+//import java.awt.Color;
 
 public class Entity {
 

@@ -132,7 +132,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		g.fillRect(345, 5, 95, 20);
 		g.setFont(new Font("arial", Font.BOLD, 17));
 		g.setColor(Color.white);
-		g.drawString("Munição: " + Player.AMMO, 350, 20);
+		g.drawString("Munição: " + Game.player.AMMO, 350, 20);
 		bs.show();
 	}
 
