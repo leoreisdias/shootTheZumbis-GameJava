@@ -44,13 +44,12 @@ public class Enemy extends Entity {
             // Inimigo está colado no player
             // Consequencias:
             if (Game.rand.nextInt(100) < 10) {
-                Game.player.LIFE -= Game.rand.nextInt(3);
-                if (Game.player.LIFE <= 0) {
+                Player.LIFE -= Game.rand.nextInt(3);
+                if (Player.LIFE <= 0) {
                     // Game Over
                     System.exit(1);
                 }
             }
-            System.out.println("LIFE: " + Player.LIFE);
 
         }
 

@@ -3,6 +3,7 @@ package com_leonardo_main;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -127,6 +128,11 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		g.dispose();
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+		g.setColor(new Color(0, 0, 0));
+		g.fillRect(345, 5, 95, 20);
+		g.setFont(new Font("arial", Font.BOLD, 17));
+		g.setColor(Color.white);
+		g.drawString("Munição: " + Player.AMMO, 350, 20);
 		bs.show();
 	}
 

@@ -24,7 +24,6 @@ public class World {
             int[] pixels = new int[spriteMap.getWidth() * spriteMap.getHeight()];
             WIDTH = spriteMap.getWidth();
             HEIGHT = spriteMap.getHeight();
-            System.out.println(World.WIDTH);
             tiles = new Tile[spriteMap.getWidth() * spriteMap.getHeight()];
             spriteMap.getRGB(0, 0, spriteMap.getWidth(), spriteMap.getHeight(), pixels, 0, spriteMap.getWidth());
             for (int xx = 0; xx < spriteMap.getWidth(); xx++) {

@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 
 import com_leonardo_main.Game;
 import com_leonardo_world.Camera;
+import java.awt.Rectangle;
+import java.awt.Color;
 
 public class Entity {
 
@@ -18,6 +20,8 @@ public class Entity {
     protected int width;
     protected int height;
 
+    private int xMask, yMask, widthMask, heightMask;
+
     private BufferedImage sprite;
 
     public Entity(int x, int y, int width, int height, BufferedImage sprite) {
@@ -26,6 +30,18 @@ public class Entity {
         this.width = width;
         this.height = height;
         this.sprite = sprite;
+
+        this.xMask = 0;
+        this.yMask = 0;
+        this.widthMask = width;
+        this.heightMask = height;
+    }
+
+    public void setMask(int xMask, int yMask, int widthMask, int heightMask) {
+        this.xMask = xMask;
+        this.yMask = yMask;
+        this.widthMask = widthMask;
+        this.heightMask = heightMask;
     }
 
     public void setX(int X) {
@@ -52,11 +68,22 @@ public class Entity {
         return this.height;
     }
 
-    public void render(Graphics g) {
-        g.drawImage(sprite, this.getX() - Camera.x, this.getY() - Camera.y, this.getWidth(), this.getHeight(), null);
-    }
-
     public void tick() {
 
     }
+
+    public static boolean isColliding(Entity e1, Entity e2) {
+        Rectangle e1Rect = new Rectangle(e1.getX() + e1.xMask, e1.getY() + e1.yMask, e1.widthMask, e1.heightMask);
+        Rectangle e2Rect = new Rectangle(e2.getX() + e2.xMask, e2.getY() + e2.yMask, e2.widthMask, e2.heightMask);
+
+        return e1Rect.intersects(e2Rect);
+    }
+
+    public void render(Graphics g) {
+        g.drawImage(sprite, this.getX() - Camera.x, this.getY() - Camera.y, this.getWidth(), this.getHeight(), null);
+        // g.setColor(Color.red);
+        // g.fillRect(this.getX() + xMask - Camera.x, this.getY() + yMask - Camera.y,
+        // widthMask, heightMask);
+    }
+
 }

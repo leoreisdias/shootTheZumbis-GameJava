@@ -19,6 +19,7 @@ public class Player extends Entity {
     private BufferedImage[] rightPlayer;
     private BufferedImage[] leftPlayer;
 
+    public static int AMMO = 0;
     public static int LIFE = 100, maxLIFE = 100;
 
     public Player(int x, int y, int width, int height, BufferedImage sprite) {
@@ -49,7 +50,6 @@ public class Player extends Entity {
         if (up && World.isFree(this.getX(), (int) (y - speed))) {
             moved = true;
             y -= speed;
-            System.out.println(y);
         } else if (down && World.isFree(this.getX(), (int) (y + speed))) {
             moved = true;
             y += speed;
@@ -68,8 +68,41 @@ public class Player extends Entity {
             frames = 0;
             index = 0;
         }
+
+        checkLifepackApproach();
+        checkAmmoApproach();
+
         Camera.x = Camera.clamp(this.getX() - (Game.WIDTH / 2), 0, World.WIDTH * 16 - Game.WIDTH);
         Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT / 2), 0, World.HEIGHT * 16 - Game.HEIGHT);
+    }
+
+    public void checkAmmoApproach() {
+        for (int i = 0; i < Game.entities.size(); i++) {
+            Entity current = Game.entities.get(i);
+            if (current instanceof Bullet) {
+                if (Entity.isColliding(this, current)) {
+                    AMMO++;
+                    System.out.println(AMMO);
+                    Game.entities.remove(current);
+                }
+            }
+        }
+    }
+
+    public void checkLifepackApproach() {
+        for (int i = 0; i < Game.entities.size(); i++) {
+            Entity current = Game.entities.get(i);
+            if (current instanceof LifePack) {
+                if (Entity.isColliding(this, current)) {
+                    LIFE += 8;
+                    if (LIFE >= 100) {
+                        LIFE = 100;
+                    }
+                    Game.entities.remove(current);
+                    return;
+                }
+            }
+        }
     }
 
     public void render(Graphics g) {
