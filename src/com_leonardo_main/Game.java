@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import com_leonardo_entities.Enemy;
 import com_leonardo_entities.Entity;
 import com_leonardo_entities.Player;
+import com_leonardo_entities.Shoot;
 import com_leonardo_graficos.Spritesheet;
 import com_leonardo_graficos.UI;
 import com_leonardo_world.World;
@@ -40,6 +41,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 	public static List<Entity> entities;
 	public static List<Enemy> enemies;
+	public static List<Shoot> bullets;
 	public static Spritesheet spritesheet;
 	public static World world;
 
@@ -58,6 +60,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		enemies = new ArrayList<Enemy>();
+		bullets = new ArrayList<Shoot>();
+
 		spritesheet = new Spritesheet("/spritesheet.png");
 		player = new Player(0, 0, 16, 16, spritesheet.getSprite(32, 0, 16, 16));
 		entities.add(player);
@@ -101,6 +105,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 			Entity e = entities.get(i);
 			e.tick();
 		}
+
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets.get(i).tick();
+		}
 	}
 
 	public void render() {
@@ -123,13 +131,18 @@ public class Game extends Canvas implements Runnable, KeyListener {
 			Entity e = entities.get(i);
 			e.render(g);
 		}
+
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets.get(i).render(g);
+		}
+
 		ui.render(g);
 		// ** */
 		g.dispose();
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		g.setColor(new Color(0, 0, 0));
-		g.fillRect(345, 5, 95, 20);
+		g.fillRect(345, 5, 100, 20);
 		g.setFont(new Font("arial", Font.BOLD, 17));
 		g.setColor(Color.white);
 		g.drawString("Munição: " + Game.player.AMMO, 350, 20);
@@ -182,6 +195,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 			player.up = true;
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
 			player.down = true;
+		}
+
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			player.isShooting = true;
 		}
 	}
 

@@ -27,6 +27,9 @@ public class Player extends Entity {
     private int damageFrame = 0;
     public int AMMO = 0;
     public int LIFE = 100, maxLIFE = 100;
+    public boolean hasGun = false;
+
+    public boolean isShooting = false;
 
     public Player(int x, int y, int width, int height, BufferedImage sprite) {
         super(x, y, width, height, sprite);
@@ -79,11 +82,35 @@ public class Player extends Entity {
 
         checkLifepackApproach();
         checkAmmoApproach();
+        checkGunApproach();
+
         if (isDamaged) {
             this.damageFrame++;
             if (this.damageFrame == 5) {
                 this.damageFrame = 0;
                 isDamaged = false;
+            }
+        }
+
+        if (isShooting) {
+            isShooting = false;
+            if (hasGun && AMMO > 0) {
+                AMMO--;
+                int dx = 0;
+                int posX = 0;
+                int posY = 0;
+                if (direction == right_direction) {
+                    posX = this.getX() + 20;
+                    posY = this.getY() + 8;
+                    dx = 1;
+                } else {
+                    posX = this.getX() - 10;
+                    posY = this.getY() + 8;
+                    dx = -1;
+                }
+
+                Shoot bullet = new Shoot(posX, posY, 3, 3, null, dx, 0);
+                Game.bullets.add(bullet);
             }
         }
 
@@ -102,12 +129,25 @@ public class Player extends Entity {
 
     }
 
+    public void checkGunApproach() {
+        for (int i = 0; i < Game.entities.size(); i++) {
+            Entity current = Game.entities.get(i);
+            if (current instanceof Gun) {
+                if (Entity.isColliding(this, current)) {
+                    hasGun = true;
+                    // System.out.println("ARMA NELE");
+                    Game.entities.remove(current);
+                }
+            }
+        }
+    }
+
     public void checkAmmoApproach() {
         for (int i = 0; i < Game.entities.size(); i++) {
             Entity current = Game.entities.get(i);
             if (current instanceof Bullet) {
                 if (Entity.isColliding(this, current)) {
-                    AMMO++;
+                    AMMO += 10;
                     System.out.println(AMMO);
                     Game.entities.remove(current);
                 }
@@ -135,8 +175,17 @@ public class Player extends Entity {
         if (!isDamaged) {
             if (direction == right_direction) {
                 g.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+                if (hasGun) {
+                    // Desenhar arma na direita
+                    g.drawImage(Entity.ENTITY_GUN_RIGHT, this.getX() - Camera.x + 10, this.getY() - Camera.y, null);
+                }
             } else if (direction == left_direction) {
                 g.drawImage(leftPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+                if (hasGun) {
+                    // Desenhar arma na esquerda
+                    g.drawImage(Entity.ENTITY_GUN_LEFT, this.getX() - Camera.x - 10, this.getY() - Camera.y, null);
+
+                }
             }
         } else {
             g.drawImage(playerDamaged, this.getX() - Camera.x, this.getY() - Camera.y, null);
