@@ -19,12 +19,15 @@ import com_leonardo_entities.Player;
 import com_leonardo_entities.Shoot;
 import com_leonardo_graficos.Spritesheet;
 import com_leonardo_graficos.UI;
+import com_leonardo_world.Camera;
 import com_leonardo_world.World;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Game extends Canvas implements Runnable, KeyListener {
+public class Game extends Canvas implements Runnable, KeyListener, MouseListener {
 
 	/**
 	 *
@@ -53,6 +56,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public Game() {
 		rand = new Random();
 		addKeyListener(this);
+		addMouseListener(this);
 		this.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		initFrame();
 		// Inicio de Objetos
@@ -214,5 +218,36 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
 			player.down = false;
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		player.mouseShoot = true;
+		player.mouseX = (e.getX() / SCALE);
+		player.mouseY = (e.getY() / SCALE);
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 }

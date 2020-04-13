@@ -11,13 +11,13 @@ import com_leonardo_main.Game;
 
 public class Shoot extends Entity {
 
-    private int dx;
-    private int dy;
+    private double dx;
+    private double dy;
     private double speed = 4;
 
     private int life = 25, currentLife = 0;
 
-    public Shoot(int x, int y, int width, int height, BufferedImage sprite, int dx, int dy) {
+    public Shoot(int x, int y, int width, int height, BufferedImage sprite, double dx, double dy) {
         super(x, y, width, height, sprite);
         this.dx = dx;
         this.dy = dy;
