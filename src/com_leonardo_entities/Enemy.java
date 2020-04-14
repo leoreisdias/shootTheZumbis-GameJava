@@ -13,15 +13,22 @@ public class Enemy extends Entity {
 
     private double speed = 0.8;
     private BufferedImage[] enemySprites;
+    private BufferedImage damagedEnemy;
     private int frames = 0, maxFrames = 20, index = 0, maxIndex = 1;
 
     private int xMask = 8, yMask = 8, widthMask = 14, heightMask = 14;
+
+    private int LIFE = 10;
+    private boolean isDamaged = false;
+    private int damageFrame = 0, maxDamageFrame = 5;
 
     public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
         super(x, y, width, height, sprite);
         enemySprites = new BufferedImage[2];
         enemySprites[0] = Game.spritesheet.getSprite(112, 16, 16, 16);
         enemySprites[1] = Game.spritesheet.getSprite(112 + 16, 16, 16, 16);
+
+        damagedEnemy = Game.spritesheet.getSprite(112, 32, 16, 16);
     }
 
     public void tick() {
@@ -60,6 +67,38 @@ public class Enemy extends Entity {
             }
         }
 
+        bulletCollision();
+        if (isDamaged) {
+            damageFrame++;
+            if (damageFrame == maxDamageFrame) {
+                isDamaged = false;
+                damageFrame = 0;
+            }
+        }
+
+        if (LIFE <= 0)
+            selfDestroy();
+
+    }
+
+    public void selfDestroy() {
+        Game.entities.remove(this);
+        Game.enemies.remove(this);
+    }
+
+    public void bulletCollision() {
+        for (int i = 0; i < Game.bullets.size(); i++) {
+            Entity e = Game.bullets.get(i);
+            if (e instanceof Shoot) {
+                if (Entity.isColliding(this, e)) {
+                    isDamaged = true;
+                    LIFE--;
+                    Game.bullets.remove(i);
+                    return;
+                }
+            }
+        }
+
     }
 
     public boolean isCollidingWithPlayer() {
@@ -85,7 +124,10 @@ public class Enemy extends Entity {
     }
 
     public void render(Graphics g) {
-        g.drawImage(enemySprites[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+        if (!isDamaged)
+            g.drawImage(enemySprites[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+        else
+            g.drawImage(damagedEnemy, this.getX() - Camera.x, this.getY() - Camera.y, null);
         // g.setColor(Color.blue);
         // g.fillRect(this.getX() + xMask - Camera.x, this.getY() + yMask - Camera.y,
         // widthMask, heightMask);

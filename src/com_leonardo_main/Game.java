@@ -19,7 +19,7 @@ import com_leonardo_entities.Player;
 import com_leonardo_entities.Shoot;
 import com_leonardo_graficos.Spritesheet;
 import com_leonardo_graficos.UI;
-import com_leonardo_world.Camera;
+//import com_leonardo_world.Camera;
 import com_leonardo_world.World;
 
 import java.awt.event.KeyEvent;
@@ -50,8 +50,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	public static Player player;
 	public UI ui;
+	// public static int countToReborn = 500;
 
 	public static Random rand;
+
+	private int LEVEL = 1, MAX_LEVEL = 2;
 
 	public Game() {
 		rand = new Random();
@@ -70,7 +73,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		player = new Player(0, 0, 16, 16, spritesheet.getSprite(32, 0, 16, 16));
 		entities.add(player);
 
-		world = new World("/map.png");
+		world = new World("/level1.png");
 
 	}
 
@@ -113,6 +116,17 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).tick();
 		}
+
+		if (enemies.size() == 0) {
+			// Proximo Level
+			LEVEL++;
+			if (LEVEL > MAX_LEVEL) {
+				LEVEL = 0;
+			}
+
+			String newWorld = "Level" + LEVEL + ".png";
+			World.levelingGame(newWorld);
+		}
 	}
 
 	public void render() {
@@ -145,12 +159,27 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		g.dispose();
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+		// if (!World.inDeathWorld) {
 		g.setColor(new Color(0, 0, 0));
 		g.fillRect(345, 5, 100, 20);
 		g.setFont(new Font("arial", Font.BOLD, 17));
 		g.setColor(Color.white);
 		g.drawString("Munição: " + Game.player.AMMO, 350, 20);
+		// } else {
+		// g.setColor(new Color(0, 0, 0));
+		// g.fillRect(395 - Camera.x, 385 - Camera.y, 150, 20);
+		// g.setFont(new Font("arial", Font.BOLD, 17));
+		// g.setColor(Color.white);
+		// g.drawString("Novo Jogo em: " + countToReborn-- / 100, 400 - Camera.x, 400 -
+		// Camera.y);
+		// if (countToReborn == 0) {
+		// World.inDeathWorld = false;
+		// countToReborn = 500;
+		// World.levelingGame("level1.png");
+		// }
+		// }
 		bs.show();
+
 	}
 
 	public void run() {

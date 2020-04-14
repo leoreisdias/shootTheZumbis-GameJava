@@ -2,9 +2,7 @@ package com_leonardo_entities;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
-import com_leonardo_graficos.Spritesheet;
 import com_leonardo_main.Game;
 import com_leonardo_world.Camera;
 import com_leonardo_world.World;
@@ -142,13 +140,7 @@ public class Player extends Entity {
         }
 
         if (LIFE <= 0) {
-            Game.entities = new ArrayList<Entity>();
-            Game.enemies = new ArrayList<Enemy>();
-            Game.spritesheet = new Spritesheet("/spritesheet.png");
-            Game.player = new Player(0, 0, 16, 16, Game.spritesheet.getSprite(32, 0, 16, 16));
-            Game.entities.add(Game.player);
-            Game.world = new World("/map.png");
-            return;
+            // World.deathWorld();
         }
 
         Camera.x = Camera.clamp(this.getX() - (Game.WIDTH / 2), 0, World.WIDTH * 16 - Game.WIDTH);

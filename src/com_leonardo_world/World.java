@@ -2,6 +2,7 @@ package com_leonardo_world;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.Graphics;
 import javax.imageio.ImageIO;
 
@@ -10,6 +11,8 @@ import com_leonardo_entities.Enemy;
 import com_leonardo_entities.Entity;
 import com_leonardo_entities.Gun;
 import com_leonardo_entities.LifePack;
+import com_leonardo_entities.Player;
+import com_leonardo_graficos.Spritesheet;
 import com_leonardo_main.Game;
 
 public class World {
@@ -17,6 +20,7 @@ public class World {
     public static Tile[] tiles;
     public static int WIDTH, HEIGHT;
     public static final int TILE_SIZE = 16;
+    public static boolean inDeathWorld = false;
 
     public World(String path) {
         try {
@@ -80,6 +84,28 @@ public class World {
                 || (tiles[x2 + (y2 * World.WIDTH)] instanceof WallTile)
                 || (tiles[x3 + (y3 * World.WIDTH)] instanceof WallTile)
                 || (tiles[x4 + (y4 * World.WIDTH)] instanceof WallTile));
+    }
+
+    // -> CASO QUEIRA UM MUNDO PÓS MORTE
+    public static void deathWorld() {
+        inDeathWorld = true;
+        Game.entities = new ArrayList<Entity>();
+        Game.enemies = new ArrayList<Enemy>();
+        Game.spritesheet = new Spritesheet("/spritesheet.png");
+        Game.player = new Player(0, 0, 16, 16, Game.spritesheet.getSprite(32, 0, 16, 16));
+        Game.entities.add(Game.player);
+        Game.world = new World("/death.png");
+        return;
+    }
+
+    public static void levelingGame(String level) {
+        Game.entities = new ArrayList<Entity>();
+        Game.enemies = new ArrayList<Enemy>();
+        Game.spritesheet = new Spritesheet("/spritesheet.png");
+        Game.player = new Player(0, 0, 16, 16, Game.spritesheet.getSprite(32, 0, 16, 16));
+        Game.entities.add(Game.player);
+        Game.world = new World("/" + level);
+        return;
     }
 
     public void render(Graphics g) {
