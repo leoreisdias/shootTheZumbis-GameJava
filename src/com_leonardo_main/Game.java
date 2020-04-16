@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 
@@ -55,6 +56,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static Random rand;
 
 	private int LEVEL = 1, MAX_LEVEL = 2;
+
+	public static String gameState = "GAMEOVER";
 
 	public Game() {
 		rand = new Random();
@@ -108,24 +111,28 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	}
 
 	public void tick() {
-		for (int i = 0; i < entities.size(); i++) {
-			Entity e = entities.get(i);
-			e.tick();
-		}
-
-		for (int i = 0; i < bullets.size(); i++) {
-			bullets.get(i).tick();
-		}
-
-		if (enemies.size() == 0) {
-			// Proximo Level
-			LEVEL++;
-			if (LEVEL > MAX_LEVEL) {
-				LEVEL = 0;
+		if (gameState.equals("VIVO")) {
+			for (int i = 0; i < entities.size(); i++) {
+				Entity e = entities.get(i);
+				e.tick();
 			}
 
-			String newWorld = "Level" + LEVEL + ".png";
-			World.levelingGame(newWorld);
+			for (int i = 0; i < bullets.size(); i++) {
+				bullets.get(i).tick();
+			}
+
+			if (enemies.size() == 0) {
+				// Proximo Level
+				LEVEL++;
+				if (LEVEL > MAX_LEVEL) {
+					LEVEL = 0;
+				}
+
+				String newWorld = "Level" + LEVEL + ".png";
+				World.levelingGame(newWorld);
+			}
+		} else if (gameState.equals("GAMEOVER")) {
+			System.out.println("GameOver");
 		}
 	}
 
@@ -178,6 +185,16 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		// World.levelingGame("level1.png");
 		// }
 		// }
+
+		if (gameState.equals("GAMEOVER")) {
+			Graphics2D g2 = (Graphics2D) g;
+			g2.setColor(new Color(0, 0, 0, 100));
+			g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+			g.setFont(new Font("arial", Font.BOLD, 30));
+			g.setColor(Color.white);
+			g.drawString("GAME OVER", (WIDTH * SCALE) / 2 - 80, (HEIGHT * SCALE) / 2);
+			g.drawString("-> Pressione Enter para Reiniciar <-", (WIDTH * SCALE) / 2 - 260, (HEIGHT * SCALE) / 2 + 40);
+		}
 		bs.show();
 
 	}
@@ -232,6 +249,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			player.isShooting = true;
+		}
+
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			gameState = "VIVO";
 		}
 	}
 
