@@ -3,6 +3,7 @@ package com_leonardo_main;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class Menu {
 
@@ -13,8 +14,10 @@ public class Menu {
 
     public boolean up = false;
     public boolean down = false;
+    public boolean pause = false;
 
     public void tick() {
+
         if (up) {
             up = false;
             currentOption--;
@@ -29,21 +32,28 @@ public class Menu {
                 currentOption = 0;
             }
         }
+
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.black);
-        g.fillRect(0, 0, Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
-        g.setColor(new Color(100, 0, 150));
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(new Color(100, 0, 120, 100));
+        g2.fillRect(0, 0, Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
+        g.setColor(Color.yellow);
         g.setFont(new Font("arial", Font.BOLD, 30));
         g.drawString("# Shoot The Zumbies #", (Game.WIDTH * Game.SCALE) / 2 - 160,
                 (Game.HEIGHT * Game.SCALE) / 2 - 120);
 
         // Opções de MENU
-        g.setColor(Color.white);
-        g.setFont(new Font("arial", Font.BOLD, 24));
-        g.drawString("Novo Jogo", (Game.WIDTH * Game.SCALE) / 2 - 65, (Game.HEIGHT * Game.SCALE) / 2 - 30);
-
+        if (!pause) {
+            g.setColor(Color.white);
+            g.setFont(new Font("arial", Font.BOLD, 24));
+            g.drawString("Novo Jogo", (Game.WIDTH * Game.SCALE) / 2 - 65, (Game.HEIGHT * Game.SCALE) / 2 - 30);
+        } else if (pause) {
+            g.setColor(Color.white);
+            g.setFont(new Font("arial", Font.BOLD, 24));
+            g.drawString("Continuar", (Game.WIDTH * Game.SCALE) / 2 - 65, (Game.HEIGHT * Game.SCALE) / 2 - 30);
+        }
         g.setFont(new Font("arial", Font.BOLD, 24));
         g.drawString("Carregar Jogo Salvo", (Game.WIDTH * Game.SCALE) / 2 - 120, (Game.HEIGHT * Game.SCALE) / 2 + 20);
 

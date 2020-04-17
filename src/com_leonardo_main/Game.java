@@ -300,9 +300,15 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		else if (gameState.equals("MENU")) {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER && menu.options[menu.currentOption] == "Novo Jogo") {
 				gameState = "VIVO";
+				menu.pause = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_ENTER && menu.options[menu.currentOption] == "Sair") {
 				System.exit(1);
 			}
+		}
+
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			menu.pause = true;
+			gameState = "MENU";
 		}
 	}
 
