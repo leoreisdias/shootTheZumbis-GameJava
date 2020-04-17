@@ -3,6 +3,7 @@ package com_leonardo_entities;
 import java.awt.image.BufferedImage;
 
 import com_leonardo_main.Game;
+import com_leonardo_main.Sound;
 import com_leonardo_world.Camera;
 import com_leonardo_world.World;
 import java.awt.Rectangle;
@@ -51,6 +52,7 @@ public class Enemy extends Entity {
             // Inimigo está colado no player
             // Consequencias:
             if (Game.rand.nextInt(100) < 10) {
+                Sound.hurtPlayerEffect.play();
                 Game.player.LIFE -= Game.rand.nextInt(3);
                 Game.player.isDamaged = true;
 
@@ -91,6 +93,7 @@ public class Enemy extends Entity {
             Entity e = Game.bullets.get(i);
             if (e instanceof Shoot) {
                 if (Entity.isColliding(this, e)) {
+                    Sound.hitBulletEffect.play();
                     isDamaged = true;
                     LIFE--;
                     Game.bullets.remove(i);
