@@ -39,7 +39,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	private boolean isRunning = true;
 	public static final int WIDTH = 240;
 	public static final int HEIGHT = 160;
-	private final int SCALE = 3;
+	public static final int SCALE = 3;
 
 	private BufferedImage image;
 
@@ -57,7 +57,13 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	private int LEVEL = 1, MAX_LEVEL = 2;
 
-	public static String gameState = "GAMEOVER";
+	public static String gameState = "MENU";
+	private boolean gameoverMessage = true;
+	private int framesGameoverMessage = 0;
+
+	public boolean restartGame = false;
+
+	public Menu menu;
 
 	public Game() {
 		rand = new Random();
@@ -77,6 +83,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		entities.add(player);
 
 		world = new World("/level1.png");
+
+		menu = new Menu();
 
 	}
 
@@ -132,8 +140,28 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				World.levelingGame(newWorld);
 			}
 		} else if (gameState.equals("GAMEOVER")) {
-			System.out.println("GameOver");
+			this.framesGameoverMessage++;
+			if (this.framesGameoverMessage == 25) {
+				this.framesGameoverMessage = 0;
+				if (this.gameoverMessage) {
+					this.gameoverMessage = false;
+
+				} else {
+					this.gameoverMessage = true;
+				}
+			}
+
+			if (restartGame) {
+				this.restartGame = false;
+				gameState = "VIVO";
+				LEVEL = 1;
+				String newWorld = "level" + LEVEL + ".png";
+				World.levelingGame(newWorld);
+			}
+		} else if (gameState.equals("MENU")) {
+			menu.tick();
 		}
+
 	}
 
 	public void render() {
@@ -172,6 +200,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		g.setFont(new Font("arial", Font.BOLD, 17));
 		g.setColor(Color.white);
 		g.drawString("Munição: " + Game.player.AMMO, 350, 20);
+
 		// } else {
 		// g.setColor(new Color(0, 0, 0));
 		// g.fillRect(395 - Camera.x, 385 - Camera.y, 150, 20);
@@ -193,7 +222,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			g.setFont(new Font("arial", Font.BOLD, 30));
 			g.setColor(Color.white);
 			g.drawString("GAME OVER", (WIDTH * SCALE) / 2 - 80, (HEIGHT * SCALE) / 2);
-			g.drawString("-> Pressione Enter para Reiniciar <-", (WIDTH * SCALE) / 2 - 260, (HEIGHT * SCALE) / 2 + 40);
+			if (gameoverMessage)
+				g.drawString("-> Pressione Enter para Reiniciar <-", (WIDTH * SCALE) / 2 - 260,
+						(HEIGHT * SCALE) / 2 + 40);
+		} else if (gameState.equals("MENU")) {
+			menu.render(g);
 		}
 		bs.show();
 
@@ -241,18 +274,35 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		} else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
 			player.left = true;
 		}
+
 		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
 			player.up = true;
+			if (gameState.equals("MENU")) {
+				menu.up = true;
+			}
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
 			player.down = true;
+
+			if (gameState.equals("MENU")) {
+				menu.down = true;
+			}
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			player.isShooting = true;
 		}
+		if (gameState.equals("GAMEOVER")) {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				restartGame = true;
+			}
+		}
 
-		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			gameState = "VIVO";
+		else if (gameState.equals("MENU")) {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER && menu.options[menu.currentOption] == "Novo Jogo") {
+				gameState = "VIVO";
+			} else if (e.getKeyCode() == KeyEvent.VK_ENTER && menu.options[menu.currentOption] == "Sair") {
+				System.exit(1);
+			}
 		}
 	}
 

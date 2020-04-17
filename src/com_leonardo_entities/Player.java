@@ -141,6 +141,7 @@ public class Player extends Entity {
 
         if (LIFE <= 0) {
             // World.deathWorld();
+            LIFE = 0;
             Game.gameState = "GAMEOVER";
         }
 

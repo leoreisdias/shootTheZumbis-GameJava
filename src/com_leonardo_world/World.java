@@ -87,16 +87,17 @@ public class World {
     }
 
     // -> CASO QUEIRA UM MUNDO PÓS MORTE
-    public static void deathWorld() {
-        inDeathWorld = true;
-        Game.entities = new ArrayList<Entity>();
-        Game.enemies = new ArrayList<Enemy>();
-        Game.spritesheet = new Spritesheet("/spritesheet.png");
-        Game.player = new Player(0, 0, 16, 16, Game.spritesheet.getSprite(32, 0, 16, 16));
-        Game.entities.add(Game.player);
-        Game.world = new World("/death.png");
-        return;
-    }
+    // public static void deathWorld() {
+    // inDeathWorld = true;
+    // Game.entities = new ArrayList<Entity>();
+    // Game.enemies = new ArrayList<Enemy>();
+    // Game.spritesheet = new Spritesheet("/spritesheet.png");
+    // Game.player = new Player(0, 0, 16, 16, Game.spritesheet.getSprite(32, 0, 16,
+    // 16));
+    // Game.entities.add(Game.player);
+    // Game.world = new World("/death.png");
+    // return;
+    // }
 
     public static void levelingGame(String level) {
         Game.entities = new ArrayList<Entity>();
