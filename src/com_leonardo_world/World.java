@@ -86,7 +86,7 @@ public class World {
                 || (tiles[x4 + (y4 * World.WIDTH)] instanceof WallTile))) {
             return true;
         }
-        if (Game.player.c > 0)
+        if (Game.player.Z > 0)
             return true;
 
         return false;

@@ -34,18 +34,18 @@ public class Enemy extends Entity {
 
     public void tick() {
         if (!this.isCollidingWithPlayer()) {
-            if ((int) x < Game.player.getX() && World.isFree((int) (x + speed), this.getY()) && Game.player.c == 0
+            if ((int) x < Game.player.getX() && World.isFree((int) (x + speed), this.getY()) && Game.player.Z == 0
                     && !isColliding((int) (x + speed), this.getY())) {
                 x += speed;
             } else if ((int) x > Game.player.getX() && World.isFree((int) (x - speed), this.getY())
-                    && Game.player.c == 0 && !isColliding((int) (x - speed), this.getY())) {
+                    && Game.player.Z == 0 && !isColliding((int) (x - speed), this.getY())) {
                 x -= speed;
             }
-            if ((int) y < Game.player.getY() && World.isFree(this.getX(), (int) (y + speed)) && Game.player.c == 0
+            if ((int) y < Game.player.getY() && World.isFree(this.getX(), (int) (y + speed)) && Game.player.Z == 0
                     && !isColliding(this.getX(), (int) (y + speed))) {
                 y += speed;
             } else if ((int) y > Game.player.getY() && World.isFree(this.getX(), (int) (y - speed))
-                    && Game.player.c == 0 && !isColliding(this.getX(), (int) (y - speed))) {
+                    && Game.player.Z == 0 && !isColliding(this.getX(), (int) (y - speed))) {
                 y -= speed;
             }
         } else {

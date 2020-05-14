@@ -35,7 +35,7 @@ public class Player extends Entity {
     public boolean jump = false;
     public boolean isJumping = false;
 
-    public int c = 0;
+    public int Z = 0;
     public int jumpFrames = 50, jumpCur = 0;
     public int jumpSpeed = 2;
 
@@ -77,7 +77,7 @@ public class Player extends Entity {
                     jumpUp = false;
                 }
             }
-            c = jumpCur;
+            Z = jumpCur;
             if (jumpCur >= jumpFrames) {
                 jumpDown = true;
                 jumpUp = false;
@@ -237,21 +237,21 @@ public class Player extends Entity {
     public void render(Graphics g) {
         if (!isDamaged) {
             if (direction == right_direction) {
-                g.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y - c, null);
+                g.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y - Z, null);
                 if (hasGun) {
                     // Desenhar arma na direita
-                    g.drawImage(Entity.ENTITY_GUN_RIGHT, this.getX() - Camera.x + 10, this.getY() - Camera.y - c, null);
+                    g.drawImage(Entity.ENTITY_GUN_RIGHT, this.getX() - Camera.x + 10, this.getY() - Camera.y - Z, null);
                 }
             } else if (direction == left_direction) {
-                g.drawImage(leftPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y - c, null);
+                g.drawImage(leftPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y - Z, null);
                 if (hasGun) {
                     // Desenhar arma na esquerda
-                    g.drawImage(Entity.ENTITY_GUN_LEFT, this.getX() - Camera.x - 10, this.getY() - Camera.y - c, null);
+                    g.drawImage(Entity.ENTITY_GUN_LEFT, this.getX() - Camera.x - 10, this.getY() - Camera.y - Z, null);
 
                 }
             }
         } else {
-            g.drawImage(playerDamaged, this.getX() - Camera.x, this.getY() - Camera.y - c, null);
+            g.drawImage(playerDamaged, this.getX() - Camera.x, this.getY() - Camera.y - Z, null);
         }
         if (isJumping) {
             g.setColor(new Color(0, 0, 0, 100));
