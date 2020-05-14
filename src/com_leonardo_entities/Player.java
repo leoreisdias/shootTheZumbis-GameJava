@@ -36,7 +36,7 @@ public class Player extends Entity {
     public boolean isJumping = false;
 
     public int c = 0;
-    public int jumpFrames = 30, jumpCur = 0;
+    public int jumpFrames = 50, jumpCur = 0;
     public int jumpSpeed = 2;
 
     public boolean jumpUp = false, jumpDown = false;
